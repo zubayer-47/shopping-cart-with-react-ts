@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../app/hooks";
 import {
   addToCart,
   decrementCart,
   incrementCart,
+  removeCart,
   storeSelector,
 } from "../features/store/storeSlice";
 
@@ -19,10 +21,13 @@ export default function Card({
 }: SingleCardType) {
   const { carts } = useSelector(storeSelector);
   const dispatch = useAppDispatch();
+
   const handleClick = () => {
     if (carts.find((cart) => cart.id === id)?.id) {
+      console.log("true");
       dispatch(incrementCart({ id, name, price, thumbnail, totalOrder }));
     } else {
+      console.log("false");
       dispatch(addToCart({ id, name, price, thumbnail, totalOrder: 1 }));
     }
   };
@@ -36,6 +41,12 @@ export default function Card({
   };
 
   const isCartExist = carts.find((c) => c.id === id);
+
+  useEffect(() => {
+    if (isCartExist?.totalOrder === 0) {
+      dispatch(removeCart(id));
+    }
+  }, [isCartExist?.totalOrder, dispatch, id]);
 
   return (
     <div>

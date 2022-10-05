@@ -37,7 +37,7 @@ export default function Cart({ cart }: CartPropTypes) {
       </div>
 
       <div className="flex grow justify-evenly">
-        <span>{formateCurrency(cart.price)}</span>
+        <span className="text-gray-600">{formateCurrency(cart.price)}</span>
         <button
           onClick={handleClose}
           className="border border-red-400 px-2 rounded text-red-500 hover:text-red-300"

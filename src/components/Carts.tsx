@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { cartStatus, storeSelector } from "../features/store/storeSlice";
+import { formateCurrency } from "../utils/formatCurrency";
 import Cart from "./Cart";
 
 export default function Carts() {
@@ -38,7 +39,12 @@ export default function Carts() {
               <Cart key={cart?.id} cart={cart} />
             ))}
 
-            <p className="ml-auto text-lg mr-5">Total Price: {totalPrice}</p>
+            <p className="ml-auto text-lg mr-5">
+              Total Price:{" "}
+              <span className="text-sm text-gray-600">
+                {formateCurrency(totalPrice)}
+              </span>
+            </p>
           </>
         ) : (
           <p className="mx-auto text-gray-600">Don't Have Any Cart Yet</p>
